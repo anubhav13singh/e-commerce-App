@@ -1,0 +1,42 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+h2{
+    color: white;
+    font: bolder;
+    font-size: 35px;
+    margin-left: 20px;
+}
+ h2 span{
+    color: orange;
+}
+a{
+    text-decoration: none;
+    font-size: 20px;
+    color: aliceblue;
+    list-style: none;
+    /* transition: 0.3s ease-in-out; */
+}
+a:hover{
+    color: olivedrab;
+    /* transform: scale(1.01); */
+}
+input{
+    border: none;
+    outline: none;
+    background: none;
+    border-bottom: 1px solid black;
+    padding: 1px 5px;margin: 5px;
+    width: 100%;
+}
+button{
+    color: red;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    margin: 5px;
+}
+
