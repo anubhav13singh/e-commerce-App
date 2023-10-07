@@ -6,9 +6,11 @@ import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { Box, useMediaQuery } from "@mui/material";
+import { useMediaQuery } from "@mui/material";
+import { NavLink } from "react-router-dom";
+import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 
-const ResponsiveNavbar = () => {
+function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
   const isMobile = useMediaQuery("(max-width:700px)");
 
@@ -21,11 +23,10 @@ const ResponsiveNavbar = () => {
   };
 
   return (
-    <AppBar sx={{ position: "sticky", top: "0px", left: "0px" }}>
-      {/* Toolbar component is a layout component that is typically used as a container for other UI components within an app's top app bar or toolbar. It's often used in conjunction with the AppBar component to create the top navigation bar of an application. */}
-      <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          My Navbar
+    <AppBar>
+      <Toolbar sx={{ bgcolor: "#0F2027" }}>
+        <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
+          <span className="gradientText">Royal Bazaar</span>
         </Typography>
         {isMobile ? (
           <>
@@ -42,23 +43,69 @@ const ResponsiveNavbar = () => {
               open={Boolean(anchorEl)}
               onClose={handleMenuClose}
             >
-              <MenuItem onClick={handleMenuClose}>Home</MenuItem>
-              <MenuItem onClick={handleMenuClose}>About</MenuItem>
-              <MenuItem onClick={handleMenuClose}>Services</MenuItem>
-              <MenuItem onClick={handleMenuClose}>Contact</MenuItem>
+              <MenuItem onClick={handleMenuClose}>
+                <NavLink to="/">Home</NavLink>
+              </MenuItem>
+              <MenuItem onClick={handleMenuClose}>
+                <NavLink to="/About">About</NavLink>
+              </MenuItem>
+              <MenuItem onClick={handleMenuClose}>
+                <NavLink to="/Product">Product</NavLink>
+              </MenuItem>
+              <MenuItem onClick={handleMenuClose}>
+                <NavLink to="/Contact">Contact</NavLink>
+              </MenuItem>
+              <MenuItem onClick={handleMenuClose}>
+                <NavLink to="/Cart">
+                  <ShoppingBagOutlinedIcon />
+                  <span
+                    style={{
+                      position: "absolute",
+                      top: "-1px",
+                      right: "40px",
+                      color: "#FF416C",
+                    }}
+                  >
+                    10
+                  </span>
+                </NavLink>
+              </MenuItem>
             </Menu>
           </>
         ) : (
           <>
-            <MenuItem onClick={handleMenuClose}>Home</MenuItem>
-            <MenuItem onClick={handleMenuClose}>About</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Services</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Contact</MenuItem>
+            <MenuItem onClick={handleMenuClose}>
+              <NavLink to="/">Home</NavLink>
+            </MenuItem>
+            <MenuItem onClick={handleMenuClose}>
+              <NavLink to="/About">About</NavLink>
+            </MenuItem>
+            <MenuItem onClick={handleMenuClose}>
+              <NavLink to="/Product">Product</NavLink>
+            </MenuItem>
+            <MenuItem onClick={handleMenuClose}>
+              <NavLink to="/Contact">Contact</NavLink>
+            </MenuItem>
+            <MenuItem onClick={handleMenuClose}>
+              <NavLink to="/Cart">
+                <ShoppingBagOutlinedIcon />
+                <span
+                  style={{
+                    position: "absolute",
+                    top: "-3px",
+                    right: "5px",
+                    color: "#FF416C",
+                  }}
+                >
+                  10
+                </span>
+              </NavLink>
+            </MenuItem>
           </>
         )}
       </Toolbar>
     </AppBar>
   );
-};
+}
 
-export default ResponsiveNavbar;
+export default Header;

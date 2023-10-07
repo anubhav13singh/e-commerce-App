@@ -1,13 +1,12 @@
-import React from 'react'
-import HeroSection from '../components/home/HeroSection'
+import React from "react";
+import HeroSection from "./home/HeroSection";
 
 function About() {
-  let data = ['Store']
   return (
     <div>
-      <HeroSection data={data}/>
+      <HeroSection data="Store" />
     </div>
-  )
+  );
 }
 
-export default About
+export default About;
