@@ -7,6 +7,7 @@ import { MdOutlineSecurity } from "react-icons/md";
 import { TbTruckDelivery, TbReplace } from "react-icons/tb";
 import Stars from "../helpers/Stars";
 import Price from "../helpers/Price";
+import CartAmount from "../components/CartAmount";
 
 function SingleProduct() {
   const { id } = useParams();
@@ -23,12 +24,13 @@ function SingleProduct() {
   }, []);
 
   const [quantity, setQuantity] = useState(1);
-  const Add = () => {
-    setQuantity(quantity + 1);
+  const setIncrease = () => {
+    quantity < 20 ? setQuantity(quantity + 1) : setQuantity(1);
   };
-  const Remove = () => {
-    setQuantity(quantity > 1 ? quantity - 1 : 1);
+  const setDecrease = () => {
+    quantity > 1 ? setQuantity(quantity - 1) : setQuantity(1);
   };
+
   return (
     <Box mt="80px" ml="20px">
       <button
@@ -54,6 +56,7 @@ function SingleProduct() {
           </span>
         </NavLink>
       </button>
+
       <Stack direction={{ xs: "column", md: "row" }}>
         <Box
           overflow="hidden"
@@ -79,6 +82,22 @@ function SingleProduct() {
             <Stars star={singleProduct?.rating?.rate} />
             <p>{singleProduct?.rating?.count} rating</p>
           </Stack>
+
+          <CartAmount />
+
+          <NavLink to="/Cart">
+            <button
+              style={{
+                padding: "10px 20px",
+                marginTop: "20px",
+                color: "red",
+                backgroundColor: "#2C3E50",
+                fontSize: "18px",
+              }}
+            >
+              Add to cart
+            </button>
+          </NavLink>
         </Box>
       </Stack>
     </Box>
