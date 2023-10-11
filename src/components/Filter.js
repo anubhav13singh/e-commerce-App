@@ -1,26 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-function Filter({ onSortChange }) {
-  const sorting = (event) => {
-    const selectedValue = event.target.value;
-    onSortChange(selectedValue);
+function Filter({ getCategory, category }) {
+  useEffect(() => {
+    getCategory();
+  }, []);
+
+  const filtering = (e) => {
+    const selectedValue = e.target.value;
   };
-
   return (
     <>
       <select
-        id="sort"
-        name="sort"
-        onChange={sorting}
+        onChange={filtering}
         style={{
           fontSize: "20px",
           padding: "5px 10px",
         }}
       >
-        <option value="max">max-min</option>
-        <option value="min">min-max</option>
-        <option value="A-Z">A-Z</option>
-        <option value="Z-A">Z-A</option>
+        {category.map((cat) => (
+          <option>{cat}</option>
+        ))}
       </select>
     </>
   );
