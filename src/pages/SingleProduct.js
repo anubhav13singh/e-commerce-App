@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import axios from "axios";
 import { Box, CardMedia, Stack, Typography } from "@mui/material";
@@ -12,24 +12,15 @@ import CartAmount from "../components/CartAmount";
 function SingleProduct() {
   const { id } = useParams();
   const [singleProduct, setSingleProduct] = useState();
-  const navigate = useNavigate();
 
   const fetchProduct = async () => {
     const res = await axios.get(`https://fakestoreapi.com/products/${id}`);
-    console.log(res.data);
+    // console.log(res.data);
     setSingleProduct(res.data);
   };
   useEffect(() => {
     fetchProduct();
   }, []);
-
-  const [quantity, setQuantity] = useState(1);
-  const setIncrease = () => {
-    quantity < 20 ? setQuantity(quantity + 1) : setQuantity(1);
-  };
-  const setDecrease = () => {
-    quantity > 1 ? setQuantity(quantity - 1) : setQuantity(1);
-  };
 
   return (
     <Box mt="80px" ml="20px">

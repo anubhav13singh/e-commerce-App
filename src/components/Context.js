@@ -4,6 +4,7 @@ import axios from "axios";
 export const myContext = createContext();
 
 export const ContextProvider = ({ children }) => {
+  // const [cartItems, setCartItems] = useState([]);
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
 
@@ -14,13 +15,18 @@ export const ContextProvider = ({ children }) => {
   };
   const getCategory = async () => {
     const res = await axios.get("https://fakestoreapi.com/products/categories");
-    console.log(res.data);
+    // console.log(res.data);
     setCategory(res.data);
   };
 
   return (
     <myContext.Provider
-      value={{ getProducts, products, getCategory, category }}
+      value={{
+        getProducts,
+        products,
+        getCategory,
+        category,
+      }}
     >
       {children}
     </myContext.Provider>

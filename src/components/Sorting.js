@@ -1,15 +1,15 @@
 import React from "react";
 
 function Sorting({ onSortChange }) {
-  const sorting = (event) => {
-    const selectedValue = event.target.value;
-    onSortChange(selectedValue);
-  };
+  // const sorting = (event) => {
+  //   const selectedValue = event.target.value;
+  //   onSortChange(selectedValue);
+  // };
 
   return (
     <>
       <select
-        onChange={sorting}
+        onChange={(e) => onSortChange(e.target.value)}
         style={{
           fontSize: "20px",
           padding: "5px 10px",

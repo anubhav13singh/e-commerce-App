@@ -1,24 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
+import { myContext } from "./Context";
 
-function Filter({ getCategory, category }) {
+function Filter({ setSelectedFilterOption }) {
+  const { category, getCategory } = useContext(myContext);
   useEffect(() => {
     getCategory();
   }, []);
 
-  const filtering = (e) => {
-    const selectedValue = e.target.value;
-  };
   return (
     <>
-      <select
-        onChange={filtering}
-        style={{
-          fontSize: "20px",
-          padding: "5px 10px",
-        }}
-      >
+      <select onClick={(e) => setSelectedFilterOption(e.target.value)}>
         {category.map((cat) => (
-          <option>{cat}</option>
+          <option key={cat}>{cat}</option>
         ))}
       </select>
     </>

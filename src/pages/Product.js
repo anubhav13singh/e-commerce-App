@@ -8,10 +8,10 @@ import ProductList from "./ProductList";
 import Filter from "../components/Filter";
 
 function Product() {
-  const { getProducts, products, category, getCategory } =
-    useContext(myContext);
+  const { getProducts, products } = useContext(myContext);
   const [sortedProducts, setSortedProducts] = useState([]);
   const [selectedSortOption, setSelectedSortOption] = useState("max"); // Default sorting option
+  const [selectedFilterOption, setSelectedFilterOption] = useState("max"); // Default sorting option
 
   useEffect(() => {
     getProducts();
@@ -45,9 +45,10 @@ function Product() {
     setSelectedSortOption(sortOption); //This function is called when the user selects a new sorting option in the Filter component.
     // It updates the selectedSortOption
   };
+
   return (
     <Box m="30px ">
-      <Filter category={category} getCategory={getCategory} />
+      <Filter setSelectedFilterOption={setSelectedFilterOption} />
       <Sorting onSortChange={handleSortChange} />
       <ProductList sortedProducts={sortedProducts} />
     </Box>
