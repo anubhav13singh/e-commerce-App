@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import axios from "axios";
-import { Box, CardMedia, Stack, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Box, Stack, Typography } from "@mui/material";
 import { MdOutlineSecurity } from "react-icons/md";
 import { TbTruckDelivery, TbReplace } from "react-icons/tb";
 import Stars from "../helpers/Stars";
@@ -12,6 +11,7 @@ import CartAmount from "../components/CartAmount";
 function SingleProduct() {
   const { id } = useParams();
   const [singleProduct, setSingleProduct] = useState();
+  const [quantity, setQuantity] = useState(1);
 
   const fetchProduct = async () => {
     const res = await axios.get(`https://fakestoreapi.com/products/${id}`);
@@ -74,7 +74,7 @@ function SingleProduct() {
             <p>{singleProduct?.rating?.count} rating</p>
           </Stack>
 
-          <CartAmount />
+          <CartAmount quantity={quantity} setQuantity={setQuantity} />
 
           <NavLink to="/Cart">
             <button
@@ -85,6 +85,7 @@ function SingleProduct() {
                 backgroundColor: "#2C3E50",
                 fontSize: "18px",
               }}
+              // onClick={addToCart}
             >
               Add to cart
             </button>
