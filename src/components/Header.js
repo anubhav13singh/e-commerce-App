@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -9,10 +9,12 @@ import MenuItem from "@mui/material/MenuItem";
 import { useMediaQuery } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
+import { myContext } from "./Context";
 
 function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
   const isMobile = useMediaQuery("(max-width:700px)");
+  const { totalQuantities } = useContext(myContext);
 
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -66,7 +68,7 @@ function Header() {
                       color: "#FF416C",
                     }}
                   >
-                    10
+                    {totalQuantities}
                   </span>
                 </NavLink>
               </MenuItem>
@@ -97,7 +99,7 @@ function Header() {
                     color: "#FF416C",
                   }}
                 >
-                  10
+                  {totalQuantities}
                 </span>
               </NavLink>
             </MenuItem>

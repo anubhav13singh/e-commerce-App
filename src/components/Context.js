@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -9,10 +9,10 @@ export const ContextProvider = ({ children }) => {
   const [category, setCategory] = useState([]);
   // FOR CART
 
-  const [cartItem, setCartItem] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
   const [totalQuantities, setTotalQuantities] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
-
+  // const location = useLocation();
   const getProducts = async () => {
     const res = await axios.get("https://fakestoreapi.com/products");
     // console.log(res.data);
@@ -23,9 +23,8 @@ export const ContextProvider = ({ children }) => {
     // console.log(res.data);
     setCategory(res.data);
   };
-
   const onAdd = (product, quantity) => {
-    const checkProductInCart = cartItem.find(
+    const checkProductInCart = cartItems.find(
       (item) => item._id === product._id
     );
 
@@ -35,7 +34,7 @@ export const ContextProvider = ({ children }) => {
     setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
 
     if (checkProductInCart) {
-      const updatedCartItems = cartItem.map((cartProduct) => {
+      const updatedCartItems = cartItems.map((cartProduct) => {
         if (cartProduct._id === product._id)
           return {
             ...cartProduct,
@@ -43,24 +42,31 @@ export const ContextProvider = ({ children }) => {
           };
       });
 
-      setCartItem(updatedCartItems);
+      setCartItems(updatedCartItems);
     } else {
       product.quantity = quantity;
 
-      setCartItem([...cartItem, { ...product }]);
+      setCartItems([...cartItems, { ...product }]);
     }
 
-    toast.success(`${qty} ${product.name} added to the cart.`);
+    toast.success(` ${product.name} added to the cart.`, {
+      autoClose: 3000,
+      toastClassName: "custom-toast", // Add the custom class name here
+    });
   };
+  const onRemove = (product) => {
+    let foundProduct = cartItems.find((item) => item._id === product._id);
+    const newCartItems = cartItems.filter((item) => item._id !== product._id);
 
-  // const onRemove = (product) => {
-  //   foundProduct = cartItems.find((item) => item._id === product._id);
-  //   const newCartItems = cartItems.filter((item) => item._id !== product._id);
-
-  //   setTotalPrice((prevTotalPrice) => prevTotalPrice -foundProduct.price * foundProduct.quantity);
-  //   setTotalQuantities(prevTotalQuantities => prevTotalQuantities - foundProduct.quantity);
-  //   setCartItems(newCartItems);
-  // }
+    setTotalPrice(
+      (prevTotalPrice) =>
+        prevTotalPrice - foundProduct.price * foundProduct.quantity
+    );
+    setTotalQuantities(
+      (prevTotalQuantities) => prevTotalQuantities - foundProduct.quantity
+    );
+    setCartItems(newCartItems);
+  };
 
   return (
     <myContext.Provider
@@ -70,14 +76,14 @@ export const ContextProvider = ({ children }) => {
         getCategory,
         category,
         // CART
-        cartItem,
-        setCartItem,
+        cartItems,
+        setCartItems,
         totalPrice,
         setTotalPrice,
         totalQuantities,
         setTotalQuantities,
         onAdd,
-        toggleCartItemQuanitity,
+        // toggleCartItemQuanitity,
         onRemove,
       }}
     >

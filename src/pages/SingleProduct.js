@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import axios from "axios";
 import { Box, Stack, Typography } from "@mui/material";
@@ -7,11 +7,14 @@ import { TbTruckDelivery, TbReplace } from "react-icons/tb";
 import Stars from "../helpers/Stars";
 import Price from "../helpers/Price";
 import CartAmount from "../components/CartAmount";
+import { myContext } from "../components/Context";
 
 function SingleProduct() {
   const { id } = useParams();
   const [singleProduct, setSingleProduct] = useState();
   const [quantity, setQuantity] = useState(1);
+
+  const { onAdd } = useContext(myContext);
 
   const fetchProduct = async () => {
     const res = await axios.get(`https://fakestoreapi.com/products/${id}`);
@@ -76,7 +79,7 @@ function SingleProduct() {
 
           <CartAmount quantity={quantity} setQuantity={setQuantity} />
 
-          <NavLink to="/Cart">
+          <NavLink>
             <button
               style={{
                 padding: "10px 20px",
@@ -85,7 +88,10 @@ function SingleProduct() {
                 backgroundColor: "#2C3E50",
                 fontSize: "18px",
               }}
-              // onClick={addToCart}
+              onClick={() => {
+                onAdd(singleProduct, quantity);
+                // setQuantity(1);
+              }}
             >
               Add to cart
             </button>

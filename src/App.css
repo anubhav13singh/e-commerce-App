@@ -47,3 +47,7 @@ a:not(.active):hover {
   padding: 15px;
   color: #c9d6ff;
 }
+.custom-toast {
+  margin-top: 100px;
+  z-index: 99;
+}
