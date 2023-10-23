@@ -29,12 +29,14 @@ export const ContextProvider = ({ children }) => {
       (item) => item._id === product._id
     );
 
-    setTotalPrice(
-      (prevTotalPrice) => prevTotalPrice + product.price * quantity
-    );
-    setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
-
     if (checkProductInCart) {
+      setTotalPrice(
+        (prevTotalPrice) => prevTotalPrice + product.price * quantity
+      );
+      setTotalQuantities(
+        (prevTotalQuantities) => prevTotalQuantities + quantity
+      );
+
       const updatedCartItems = cartItems.map((cartProduct) => {
         if (cartProduct._id === product._id)
           return {
@@ -55,7 +57,7 @@ export const ContextProvider = ({ children }) => {
       toastClassName: "custom-toast", // Add the custom class name here
     });
   };
-  
+
   const onRemove = (product) => {
     let foundProduct = cartItems.find((item) => item._id === product._id);
     const newCartItems = cartItems.filter((item) => item._id !== product._id);
