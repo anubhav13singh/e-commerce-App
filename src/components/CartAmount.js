@@ -11,14 +11,16 @@ function CartAmount({ quantity, setQuantity }) {
   };
 
   return (
-    <Stack direction="row">
-      <button onClick={setDecrease}>
+    <Stack direction="row" alignItems="center">
+      <IconButton onClick={setDecrease} sx={{ color: "#ee9ca7" }}>
         <RemoveCircleOutlineOutlinedIcon />
-      </button>
-      <Typography fontSize="20px"> {quantity}</Typography>
-      <button onClick={setIncrease}>
+      </IconButton>
+      <Typography fontSize="20px" width="25px" textAlign="center">
+        {quantity}
+      </Typography>
+      <IconButton onClick={setIncrease} sx={{ color: "#ee9ca7" }}>
         <AddCircleOutlineOutlinedIcon />
-      </button>
+      </IconButton>
     </Stack>
   );
 }

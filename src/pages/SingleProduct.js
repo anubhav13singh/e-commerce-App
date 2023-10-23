@@ -51,35 +51,58 @@ function SingleProduct() {
         </NavLink>
       </button>
 
-      <Stack direction={{ xs: "column", md: "row" }}>
+      <Stack direction={{ xs: "column", md: "row" }} m="30px 0">
         <Box
           overflow="hidden"
           width={{ xs: "90vw", sm: "60vw", md: "40vw" }}
           height={{ xs: "50vh", sm: "45vh", md: "60vh" }}
+          borderRadius="0px 10px 50px 5px"
         >
           <img width="100%" height="100%" src={singleProduct?.image} />
         </Box>
 
-        <Box>
-          <Typography>{singleProduct?.title}</Typography>
-          <Typography>
-            MRP :{" "}
-            <del>
-              <Price price={singleProduct?.price + 12} />
-            </del>
+        <Box m={{ xs: "20px 0", md: "0 40px" }}>
+          <Typography fontSize="22px" fontWeight="bold" color="#DBE6F6">
+            {singleProduct?.title}
           </Typography>
 
-          <Typography>
-            Offer of the Day <Price price={singleProduct?.price} />
+          <Typography m="10px 0px" display="flex" gap="20px" fontWeight="bold">
+            <Box>
+              <span style={{ color: "grey" }}>MRP :</span>
+              <del style={{ color: "red" }}>
+                <Price price={singleProduct?.price + 12} />
+              </del>
+            </Box>
+            <Box color="#6DD5FA">
+              <Price price={singleProduct?.price} />
+            </Box>
           </Typography>
-          <Stack direction="row" gap="20px">
+
+          <Stack direction="row" gap="20px" mb="20px">
             <Stars star={singleProduct?.rating?.rate} />
-            <p>{singleProduct?.rating?.count} rating</p>
+            <p style={{ fontSize: "17px", color: "greenyellow" }}>
+              {singleProduct?.rating?.count} rating
+            </p>
           </Stack>
 
           <CartAmount quantity={quantity} setQuantity={setQuantity} />
 
-          <NavLink>
+          <button
+            style={{
+              padding: "10px 20px",
+              marginTop: "20px",
+              color: "red",
+              backgroundColor: "#2C3E50",
+              fontSize: "18px",
+            }}
+            onClick={() => {
+              onAdd(singleProduct, quantity);
+              // setQuantity(1);
+            }}
+          >
+            Add to cart
+          </button>
+          <NavLink to="/cart">
             <button
               style={{
                 padding: "10px 20px",
@@ -88,12 +111,8 @@ function SingleProduct() {
                 backgroundColor: "#2C3E50",
                 fontSize: "18px",
               }}
-              onClick={() => {
-                onAdd(singleProduct, quantity);
-                // setQuantity(1);
-              }}
             >
-              Add to cart
+              Buy Now
             </button>
           </NavLink>
         </Box>

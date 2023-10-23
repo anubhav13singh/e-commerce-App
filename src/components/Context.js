@@ -23,6 +23,7 @@ export const ContextProvider = ({ children }) => {
     // console.log(res.data);
     setCategory(res.data);
   };
+  // CART
   const onAdd = (product, quantity) => {
     const checkProductInCart = cartItems.find(
       (item) => item._id === product._id
@@ -54,6 +55,7 @@ export const ContextProvider = ({ children }) => {
       toastClassName: "custom-toast", // Add the custom class name here
     });
   };
+  
   const onRemove = (product) => {
     let foundProduct = cartItems.find((item) => item._id === product._id);
     const newCartItems = cartItems.filter((item) => item._id !== product._id);

@@ -52,7 +52,8 @@ function Header() {
                 <NavLink to="/About">About</NavLink>
               </MenuItem>
               <MenuItem onClick={handleMenuClose}>
-                <NavLink to="/Product">Product</NavLink>
+                {/* <NavLink to="/Product">Product</NavLink> */}
+                <a href="#product" />
               </MenuItem>
               <MenuItem onClick={handleMenuClose}>
                 <NavLink to="/Contact">Contact</NavLink>

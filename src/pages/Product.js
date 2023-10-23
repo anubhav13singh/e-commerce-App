@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useContext } from "react";
 import { myContext } from "../components/Context";
 import { useEffect } from "react";
-import { Box, Stack } from "@mui/material";
+import { Box } from "@mui/material";
 import Sorting from "../components/Sorting";
 import ProductList from "./ProductList";
 import Filter from "../components/Filter";
