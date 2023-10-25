@@ -130,28 +130,20 @@ function SingleProduct() {
           </Box>
           {/* BUTTONS */}
           <button
-            style={{
-              padding: "10px 20px",
-              marginTop: "20px",
-              color: "red",
-              backgroundColor: "#2C3E50",
-              fontSize: "18px",
-            }}
+            className="btn"
             onClick={() => {
               onAdd(singleProduct, quantity);
-              // setQuantity(1);
+              setQuantity(1);
             }}
           >
             Add to cart
           </button>
           <NavLink to="/cart">
             <button
-              style={{
-                padding: "10px 20px",
-                marginTop: "20px",
-                color: "red",
-                backgroundColor: "#2C3E50",
-                fontSize: "18px",
+              className="btn"
+              onClick={() => {
+                onAdd(singleProduct, quantity);
+                setQuantity(1);
               }}
             >
               Buy Now
