@@ -24,6 +24,7 @@ export const ContextProvider = ({ children }) => {
     setCategory(res.data);
   };
   // CART
+
   const onAdd = (product, quantity) => {
     const checkProductInCart = cartItems.find(
       (item) => item._id === product._id
@@ -32,8 +33,8 @@ export const ContextProvider = ({ children }) => {
       (prevTotalPrice) => prevTotalPrice + product.price * quantity
     );
     setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
-    
-    if (checkProductInCart) {
+
+    if (checkProductInCart === null) {
       const updatedCartItems = cartItems.map((cartProduct) => {
         if (cartProduct._id === product._id)
           return {
@@ -48,11 +49,6 @@ export const ContextProvider = ({ children }) => {
 
       setCartItems([...cartItems, { ...product }]);
     }
-
-    toast.success(` ${product.name} added to the cart.`, {
-      autoClose: 3000,
-      toastClassName: "custom-toast", // Add the custom class name here
-    });
   };
 
   const onRemove = (product) => {
