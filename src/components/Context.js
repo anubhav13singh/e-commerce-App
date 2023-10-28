@@ -26,29 +26,20 @@ export const ContextProvider = ({ children }) => {
   // CART
 
   const onAdd = (product, quantity) => {
-    const checkProductInCart = cartItems.find(
-      (item) => item._id === product._id
-    );
+    const updatedCartItems = [...cartItems];
+    const existingCartItem = cartItems.find((item) => item.id === product.id);
+
+    if (existingCartItem) {
+      existingCartItem.quantity += quantity;
+    } else {
+      updatedCartItems.push(product);
+    }
+
+    setCartItems(updatedCartItems);
     setTotalPrice(
       (prevTotalPrice) => prevTotalPrice + product.price * quantity
     );
     setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
-
-    if (checkProductInCart === null) {
-      const updatedCartItems = cartItems.map((cartProduct) => {
-        if (cartProduct._id === product._id)
-          return {
-            ...cartProduct,
-            quantity: cartProduct.quantity + quantity,
-          };
-      });
-
-      setCartItems(updatedCartItems);
-    } else {
-      product.quantity = quantity;
-
-      setCartItems([...cartItems, { ...product }]);
-    }
   };
 
   const onRemove = (product) => {
@@ -64,6 +55,8 @@ export const ContextProvider = ({ children }) => {
     );
     setCartItems(newCartItems);
   };
+
+  // TO TOGGLE THE CART ITEM QUANTITY
 
   return (
     <myContext.Provider

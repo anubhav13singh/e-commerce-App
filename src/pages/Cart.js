@@ -1,27 +1,28 @@
 import React, { useContext } from "react";
 import { myContext } from "../components/Context";
 import { Box, Typography } from "@mui/material";
-import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
-import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import { NavLink } from "react-router-dom";
 import Price from "../helpers/Price";
+import {
+  AddShoppingCartOutlined,
+  KeyboardArrowLeftOutlined,
+} from "@mui/icons-material";
 
 function Cart() {
   const { totalPrice, totalQuantities, cartItems } = useContext(myContext);
   console.log(cartItems);
+
   return (
     <Box mt="70px">
       <Box display="flex" alignItems="center">
-        <KeyboardArrowLeftOutlinedIcon
-          style={{ fontSize: 30, color: "olive" }}
-        />
+        <KeyboardArrowLeftOutlined style={{ fontSize: 30, color: "olive" }} />
         <span className="cart-heading">Your Cart </span>
         <span className="cart-num-items"> ({totalQuantities} items)</span>
       </Box>
 
       {cartItems.length < 1 && (
         <Box textAlign="center" margin="40px">
-          <AddShoppingCartOutlinedIcon
+          <AddShoppingCartOutlined
             style={{
               fontSize: 200,
               opacity: ".5",
@@ -52,12 +53,26 @@ function Cart() {
               </Box>
               {/* CART ITEMS DETAILS */}
               <Box width="50%">
-                <Typography>{item?.title.slice(0, 50)}</Typography>
+                <Typography>{item?.title}</Typography>
                 <Price price={item.price} />
+                {/* <CartAmount /> */}
               </Box>
             </Box>
           ))}
       </Box>
+      {cartItems.length >= 1 && (
+        <div className="cart-bottom">
+          <div className="total">
+            <h3>Subtotal:</h3>
+            <Price price={totalPrice} />
+          </div>
+          <div className="btn-container">
+            <button type="button" className="btn">
+              Pay with Stripe
+            </button>
+          </div>
+        </div>
+      )}
     </Box>
   );
 }
