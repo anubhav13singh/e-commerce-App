@@ -7,9 +7,11 @@ import {
   AddShoppingCartOutlined,
   KeyboardArrowLeftOutlined,
 } from "@mui/icons-material";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 function Cart() {
-  const { totalPrice, totalQuantities, cartItems } = useContext(myContext);
+  const { totalPrice, totalQuantities, cartItems, onRemove } =
+    useContext(myContext);
   console.log(cartItems);
 
   return (
@@ -37,26 +39,46 @@ function Cart() {
           </NavLink>
         </Box>
       )}
-      {/* caert products */}
+
+      {/* cart products */}
 
       <Box mt="30px ">
         {cartItems.length > 0 &&
           cartItems.map((item) => (
-            <Box key={item.id} display="flex" justifyContent="space-evenly">
+            <Box
+              key={item.id}
+              display="flex"
+              gap="20px"
+              width={{ xs: "90vw", sm: "70vw", md: "50vw" }}
+              margin="20px auto"
+            >
               <Box
-                width={{ xs: "150px", md: "250px" }}
-                height={{ xs: "150px", md: "250px" }}
+                width={{ xs: "120px", md: "200px" }}
+                height={{ xs: "120px", md: "180px" }}
                 borderRadius="20px"
                 overflow="hidden"
               >
                 <img width="100%" height="100%" src={item?.image} alt="img" />
               </Box>
+
               {/* CART ITEMS DETAILS */}
-              <Box width="50%">
-                <Typography>{item?.title}</Typography>
+              <Box width="50vw">
+                <Typography
+                  fontSize={{ xs: "13px", md: "20px" }}
+                  fontWeight="500"
+                  color="red"
+                  // mt="5px"
+                >
+                  {item?.title}
+                </Typography>
                 <Price price={item.price} />
                 {/* <CartAmount /> */}
               </Box>
+
+              <HighlightOffIcon
+                style={{ color: "rgb(152, 55, 55)", fontSize: "28" }}
+                onClick={() => onRemove(item)}
+              />
             </Box>
           ))}
       </Box>

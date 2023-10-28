@@ -34,8 +34,8 @@ export const ContextProvider = ({ children }) => {
     } else {
       updatedCartItems.push(product);
     }
-
     setCartItems(updatedCartItems);
+
     setTotalPrice(
       (prevTotalPrice) => prevTotalPrice + product.price * quantity
     );
@@ -43,17 +43,8 @@ export const ContextProvider = ({ children }) => {
   };
 
   const onRemove = (product) => {
-    let foundProduct = cartItems.find((item) => item._id === product._id);
-    const newCartItems = cartItems.filter((item) => item._id !== product._id);
-
-    setTotalPrice(
-      (prevTotalPrice) =>
-        prevTotalPrice - foundProduct.price * foundProduct.quantity
-    );
-    setTotalQuantities(
-      (prevTotalQuantities) => prevTotalQuantities - foundProduct.quantity
-    );
-    setCartItems(newCartItems);
+    const updatedCartItems = cartItems.filter((item) => item.id !== product.id);
+    setCartItems(updatedCartItems);
   };
 
   // TO TOGGLE THE CART ITEM QUANTITY
