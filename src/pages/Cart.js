@@ -1,26 +1,35 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { myContext } from "../components/Context";
-import { Box, Typography } from "@mui/material";
+import { Box, IconButton, Stack, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import Price from "../helpers/Price";
 import {
   AddShoppingCartOutlined,
   KeyboardArrowLeftOutlined,
 } from "@mui/icons-material";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOutlineOutlined";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 function Cart() {
-  const { totalPrice, totalQuantities, cartItems, onRemove } =
-    useContext(myContext);
-  console.log(cartItems);
+  const {
+    totalPrice,
+    totalQuantities,
+    cartItems,
+    onRemove,
+    toggleCartItemQuantity,
+  } = useContext(myContext);
+  // console.log(cartItems);
 
   return (
     <Box mt="70px">
-      <Box display="flex" alignItems="center">
-        <KeyboardArrowLeftOutlined style={{ fontSize: 30, color: "olive" }} />
-        <span className="cart-heading">Your Cart </span>
-        <span className="cart-num-items"> ({totalQuantities} items)</span>
-      </Box>
+      <NavLink to="/">
+        <Box display="flex" alignItems="center">
+          <KeyboardArrowLeftOutlined style={{ fontSize: 30, color: "olive" }} />
+          <span className="cart-heading">Your Cart </span>
+          <span className="cart-num-items"> ({totalQuantities} items)</span>
+        </Box>
+      </NavLink>
 
       {cartItems.length < 1 && (
         <Box textAlign="center" margin="40px">
@@ -72,16 +81,34 @@ function Cart() {
                   {item?.title}
                 </Typography>
                 <Price price={item.price} />
-                {/* <CartAmount /> */}
+                {/* CARTQTY */}
+                <Stack direction="row" alignItems="center">
+                  <IconButton
+                    onClick={() => toggleCartItemQuantity(item.id, "dec")}
+                    sx={{ color: "#ee9ca7" }}
+                  >
+                    <RemoveCircleOutlineOutlinedIcon />
+                  </IconButton>
+                  <Typography fontSize="20px" width="25px" textAlign="center">
+                    {item.quantity}
+                  </Typography>
+                  <IconButton
+                    onClick={() => toggleCartItemQuantity(item.id, "inc")}
+                    sx={{ color: "#ee9ca7" }}
+                  >
+                    <AddCircleOutlineOutlinedIcon />
+                  </IconButton>
+                </Stack>
               </Box>
 
               <HighlightOffIcon
                 style={{ color: "rgb(152, 55, 55)", fontSize: "28" }}
-                onClick={() => onRemove(item)}
+                onClick={() => onRemove(item, item.quantity)}
               />
             </Box>
           ))}
       </Box>
+
       {cartItems.length >= 1 && (
         <div className="cart-bottom">
           <div className="total">

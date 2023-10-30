@@ -12,9 +12,8 @@ import { myContext } from "../components/Context";
 function SingleProduct() {
   const { id } = useParams();
   const [singleProduct, setSingleProduct] = useState();
-  const [quantity, setQuantity] = useState(1);
 
-  const { onAdd } = useContext(myContext);
+  const { onAdd, quantity, setQuantity } = useContext(myContext);
 
   const fetchProduct = async () => {
     const res = await axios.get(`https://fakestoreapi.com/products/${id}`);
@@ -94,7 +93,7 @@ function SingleProduct() {
             </p>
           </Stack>
 
-          <CartAmount quantity={quantity} setQuantity={setQuantity} />
+          <CartAmount />
 
           <Grid container spacing={2} mt="0">
             <Grid item xs={4}>

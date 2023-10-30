@@ -47,7 +47,7 @@ function Product() {
   };
 
   return (
-    <Box m="30px ">
+    <Box m=" 70px 0px 20px 30px">
       <Filter setSelectedFilterOption={setSelectedFilterOption} />
       <Sorting onSortChange={handleSortChange} />
       <ProductList sortedProducts={sortedProducts} />

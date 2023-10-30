@@ -7,12 +7,12 @@ export const myContext = createContext();
 export const ContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
+  const [quantity, setQuantity] = useState(1);
   // FOR CART
-
   const [cartItems, setCartItems] = useState([]);
   const [totalQuantities, setTotalQuantities] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
-  // const location = useLocation();
+
   const getProducts = async () => {
     const res = await axios.get("https://fakestoreapi.com/products");
     // console.log(res.data);
@@ -23,8 +23,15 @@ export const ContextProvider = ({ children }) => {
     // console.log(res.data);
     setCategory(res.data);
   };
-  // CART
 
+  const incQty = () => {
+    quantity < 10 ? setQuantity(quantity + 1) : setQuantity(quantity);
+  };
+  const decQty = () => {
+    quantity > 1 ? setQuantity(quantity - 1) : setQuantity(1);
+  };
+
+  // CART
   const onAdd = (product, quantity) => {
     const updatedCartItems = [...cartItems];
     const existingCartItem = cartItems.find((item) => item.id === product.id);
@@ -40,14 +47,22 @@ export const ContextProvider = ({ children }) => {
       (prevTotalPrice) => prevTotalPrice + product.price * quantity
     );
     setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
+    toast.success(
+      `${quantity} ${product.title.slice(0, 20)} added to the cart.`
+    );
   };
 
   const onRemove = (product) => {
     const updatedCartItems = cartItems.filter((item) => item.id !== product.id);
     setCartItems(updatedCartItems);
+    setTotalPrice(
+      (prevTotalPrice) => prevTotalPrice - product.price * quantity
+    );
+    setTotalQuantities((prevTotalQuantities) => prevTotalQuantities - quantity);
+    toast.success(
+      `${quantity} ${product.title.slice(0, 20)} added to the cart.`
+    );
   };
-
-  // TO TOGGLE THE CART ITEM QUANTITY
 
   return (
     <myContext.Provider
@@ -56,6 +71,10 @@ export const ContextProvider = ({ children }) => {
         products,
         getCategory,
         category,
+        quantity,
+        setQuantity,
+        incQty,
+        decQty,
         // CART
         cartItems,
         setCartItems,
@@ -64,8 +83,8 @@ export const ContextProvider = ({ children }) => {
         totalQuantities,
         setTotalQuantities,
         onAdd,
-        // toggleCartItemQuanitity,
         onRemove,
+        // toggleCartItemQuantity,
       }}
     >
       {children}
